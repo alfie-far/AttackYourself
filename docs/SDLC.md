@@ -108,3 +108,45 @@ AI + humans learn
 
 
 
+
+## Useful paradigms
+
+**ADRs as a versioned decision log.** An ADR records an important decision, why it was needed, the options considered, and its consequences. Keep one file per decision, give it a stable number, and append new decisions rather than rewriting history. Mark older decisions as superseded and link to the replacement. MADR is a practical Markdown template; the ADR project describes the broader practice of storing decisions in Git. ([ADR overview](https://github.com/architecture-decision-record/architecture-decision-record), [MADR](https://github.com/adr/madr))
+
+**Domain knowledge as ubiquitous language, organized by bounded context.** DDD’s useful contribution here is not “make a giant glossary”; it’s making terminology explicit and recognizing that a term can mean different things in different contexts. Keep definitions close to the domain or context they describe, and record aliases or conflicting meanings rather than silently forcing one definition. ([Martin Fowler on DDD](https://martinfowler.com/bliki/DomainDrivenDesign.html))
+
+**Architecture documentation that serves different readers.** Use concise text for decisions and definitions, and diagrams for relationships. A C4 system-context diagram is a good high-level view of the system, its users, and external systems; it is intentionally not a low-level design spec. ([C4 system context](https://c4model.com/diagrams/system-context), [arc42](https://arc42.org/overview/))
+
+**Agent context with progressive disclosure.** Keep always-loaded instructions short and actionable. Link to detailed domain and architecture documents, and direct agents to load the relevant material for the task at hand. Don’t copy entire glossaries or ADR histories into `AGENTS.md`: duplicated guidance drifts and wastes context. This aligns with guidance to keep project instructions concise and put specialized workflows or details elsewhere. ([GitHub repository instructions](https://docs.github.com/en/copilot/how-tos/copilot-on-github/customize-copilot/add-custom-instructions/add-repository-instructions), [Claude Code memory guidance](https://code.claude.com/docs/en/memory), [Agent Skills](https://agentskills.io/))
+
+## Recommendation for AttackYourself
+
+Start with a small, Git-versioned documentation structure:
+
+```text
+docs/
+  PRODUCT-VISION.md
+  SDLC.md
+  decisions/
+    README.md
+    0001-use-agentcore-runtime.md
+  domain/
+    README.md
+    glossary.md
+    bounded-contexts.md
+```
+
+Use the ADRs for **why** significant choices were made. Use the domain docs for **what terms and boundaries mean**. Use `AGENTS.md` to tell agents **when to consult them** and what process to follow—not to repeat their contents.
+
+For this project, I’d treat these as *candidate* contexts to validate, not architecture already decided:
+
+- **Assessment:** scenario outcomes, control effectiveness, evidence, scorecards.
+- **Simulation:** scenarios, authorized scope, execution runs, and cleanup.
+- **Execution boundary:** tools, gateway, policy decisions, and target resources.
+- **Evidence:** telemetry and records that support what the assessment claims.
+
+Terms worth defining early include **scenario**, **simulation run**, **target**, **authorized scope**, **tool**, **evidence**, **observed outcome**, and **scorecard**. A term like “attack” may need context-specific qualification; planning an attack hypothesis is different from executing a simulation.
+
+For agent-assisted changes, a useful rule is: **consult existing ADRs and domain definitions before proposing a consequential change; propose a new ADR when changing an architectural commitment; don’t treat an agent-written ADR as accepted until a human accepts it.** Where a decision affects behavior, connect the documentation to validation—schemas, tests, or policy checks—rather than assuming an agent will enforce prose. Agent instructions are guidance; they are not a security boundary.
+
+I’d avoid adding a knowledge graph, vector database, or agent-specific copy of the glossary for now. Markdown in the repo is searchable, reviewable, and sufficient at this scale. Add structure or retrieval automation only when a demonstrated workflow needs it.
