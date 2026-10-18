@@ -1,1 +1,8 @@
-[]
+[
+  {
+    "name": "default",
+    "description": "Attack Yourself development account",
+    "account": "<AWS_ACCOUNT_ID>",
+    "region": "ap-southeast-2"
+  }
+]
