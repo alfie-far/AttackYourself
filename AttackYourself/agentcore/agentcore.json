@@ -15,7 +15,13 @@
       "codeLocation": "app/AdversaryAgent/",
       "runtimeVersion": "NODE_22",
       "networkMode": "PUBLIC",
-      "protocol": "HTTP"
+      "protocol": "HTTP",
+      "envVars": [
+        {
+          "name": "ATTACK_GATEWAY_MCP_URL",
+          "value": "https://attackyourself-attackgateway-zu6hhftyf1.gateway.bedrock-agentcore.ap-southeast-2.amazonaws.com/mcp"
+        }
+      ]
     }
   ],
   "memories": [],
@@ -28,7 +34,16 @@
       "name": "AttackGateway",
       "protocolType": "None",
       "description": "Gateway for AttackGateway",
-      "targets": [],
+      "targets": [
+        {
+          "name": "SimulationEnvironment",
+          "targetType": "lambdaFunctionArn",
+          "lambdaFunctionArn": {
+            "lambdaArn": "arn:aws:lambda:ap-southeast-2:610034861450:function:AgentCore-AttackYourself--SimulationEnvironmentA25-5JH6ZLnl4FFq",
+            "toolSchemaFile": "tools/simulation-environment.json"
+          }
+        }
+      ],
       "authorizerType": "NONE",
       "enableSemanticSearch": true,
       "exceptionLevel": "NONE"

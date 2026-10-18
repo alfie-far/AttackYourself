@@ -7,6 +7,7 @@ This CDK project is managed by the AgentCore CLI. It deploys your agent infrastr
 - `bin/cdk.ts` — Entry point. Reads project configuration from `agentcore/` and creates a stack per deployment target.
 - `lib/cdk-stack.ts` — Defines `AgentCoreStack`, which wraps the `AgentCoreApplication` L3 construct.
 - `test/cdk.test.ts` — Unit tests for stack synthesis.
+- `lambda/describe-simulation-environment.ts` — Static Lambda handler for describing the simulated environment.
 
 ## Useful commands
 
@@ -24,3 +25,7 @@ You typically don't need to interact with this directory directly. The AgentCore
 agentcore deploy    # synthesizes and deploys via CDK
 agentcore status    # checks deployment status
 ```
+
+The stack currently provisions the standalone simulation environment Lambda and
+outputs its ARN as `SimulationEnvironmentLambdaArn`. It is not yet attached to
+the `AttackGateway`; adding a Gateway target is a separate step.

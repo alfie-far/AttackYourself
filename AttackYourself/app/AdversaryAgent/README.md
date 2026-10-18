@@ -23,6 +23,7 @@ validation when extending the request shape, and pass only prompt text to the ag
 | Variable | Required | Description |
 | --- | --- | --- |
 | `LOCAL_DEV` | No | Set to `1` to use `.env.local` instead of AgentCore Identity |
+| `ATTACK_GATEWAY_MCP_URL` | Yes | Gateway HTTPS MCP URL ending in `/mcp`. Runtime value is configured in AgentCore; set it for local runs. |
 
 # Developing locally
 

@@ -8,9 +8,12 @@ import {
   type CustomJWTAuthorizerConfig,
   type HarnessDeploymentConfig,
 } from '@aws/agentcore-cdk';
-import { CfnOutput, Stack, type StackProps } from 'aws-cdk-lib';
+import { CfnOutput, Duration, Stack, type StackProps } from 'aws-cdk-lib';
 import * as iam from 'aws-cdk-lib/aws-iam';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as nodejs from 'aws-cdk-lib/aws-lambda-nodejs';
 import { Construct } from 'constructs';
+import * as path from 'path';
 
 /**
  * Harness deployment config: role-scoped fields (for IAM role + container build)
@@ -105,11 +108,27 @@ function isPaymentEligibleAgent(agent: { entrypoint?: string; protocol?: string 
 export class AgentCoreStack extends Stack {
   /** The AgentCore application containing all agent environments */
   public readonly application: AgentCoreApplication;
+  /** Static environment description tool, not yet attached to a Gateway. */
+  public readonly simulationEnvironmentFunction: nodejs.NodejsFunction;
 
   constructor(scope: Construct, id: string, props: AgentCoreStackProps) {
     super(scope, id, props);
 
     const { spec, mcpSpec, credentials, harnesses, connectorParametersByFile, paymentSpec } = props;
+
+    this.simulationEnvironmentFunction = new nodejs.NodejsFunction(this, 'SimulationEnvironment', {
+      entry: path.resolve(process.cwd(), 'lambda/describe-simulation-environment.ts'),
+      projectRoot: process.cwd(),
+      handler: 'handler',
+      runtime: lambda.Runtime.NODEJS_22_X,
+      memorySize: 128,
+      timeout: Duration.seconds(10),
+      description: 'Returns the static simulated environment description.',
+    });
+    new CfnOutput(this, 'SimulationEnvironmentLambdaArn', {
+      description: 'ARN of the standalone simulation environment Lambda.',
+      value: this.simulationEnvironmentFunction.functionArn,
+    });
 
     // Create AgentCoreApplication with all agents and harness roles
     // eslint-disable-next-line @typescript-eslint/no-explicit-any

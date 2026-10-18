@@ -2,7 +2,7 @@
   {
     "name": "default",
     "description": "Attack Yourself development account",
-    "account": "<AWS_ACCOUNT_ID>",
+    "account": "610034861450",
     "region": "ap-southeast-2"
   }
 ]

@@ -1,0 +1,11 @@
+[
+  {
+    "name": "describe_simulation_environment",
+    "description": "Returns the AWS resources and security controls visible in the Attack Yourself simulation environment.",
+    "inputSchema": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    }
+  }
+]
