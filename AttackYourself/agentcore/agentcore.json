@@ -15,13 +15,7 @@
       "codeLocation": "app/AdversaryAgent/",
       "runtimeVersion": "NODE_22",
       "networkMode": "PUBLIC",
-      "protocol": "HTTP",
-      "envVars": [
-        {
-          "name": "ATTACK_GATEWAY_MCP_URL",
-          "value": "https://attackyourself-attackgateway-zu6hhftyf1.gateway.bedrock-agentcore.ap-southeast-2.amazonaws.com/mcp"
-        }
-      ]
+      "protocol": "HTTP"
     }
   ],
   "memories": [],
