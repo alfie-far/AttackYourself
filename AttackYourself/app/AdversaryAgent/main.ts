@@ -1,16 +1,8 @@
 import { BedrockAgentCoreApp } from 'bedrock-agentcore/runtime';
-import { Agent, McpClient, tool, type ToolList } from '@strands-agents/sdk';
+import { Agent, tool, type ToolList } from '@strands-agents/sdk';
 import { z } from 'zod';
 import { loadModel } from './model/load.js';
 import { getStreamableHttpMcpClient } from './mcp_client/client.js';
-
-// Define a collection of MCP clients (filter out anything that failed to initialize)
-const mcpClients: McpClient[] = [getStreamableHttpMcpClient()].filter(
-  (client): client is McpClient => Boolean(client)
-);
-
-// Define a collection of tools used by the model
-const tools: ToolList = [];
 
 // Define a simple function tool — the Zod schema gives us type inference and runtime validation for free
 const addNumbers = tool({
@@ -22,10 +14,15 @@ const addNumbers = tool({
   }),
   callback: async ({ a, b }) => a + b,
 });
-tools.push(addNumbers);
 
-// Add MCP clients to tools
-tools.push(...mcpClients);
+let tools: ToolList | undefined;
+
+function getTools(): ToolList {
+  if (!tools) {
+    tools = [addNumbers, getStreamableHttpMcpClient()];
+  }
+  return tools;
+}
 
 const SYSTEM_PROMPT = `
 You are the Attack Yourself adversary agent.
@@ -68,7 +65,7 @@ async function getOrCreateAgent(sessionId: string): Promise<Agent> {
   const agent = new Agent({
     model,
     systemPrompt: SYSTEM_PROMPT,
-    tools,
+    tools: getTools(),
   });
   agentCache.set(sessionId, agent);
   return agent;
