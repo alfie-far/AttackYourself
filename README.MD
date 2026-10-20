@@ -8,10 +8,27 @@ The product should be treated as a continuous purple-team report, not as a
 single opaque security score. Findings need to be grounded in what actually
 happened and the evidence collected during each authorized scenario.
 
-## Project vision and development approach
+The architectural thesis is:
+
+> **AttackYourself turns reusable Attack Plans into policy-bounded Attack
+> Pipelines, executes them as authorised Attack Deployments, and evaluates the
+> resulting security evidence.**
+
+The core control loop is:
+
+```text
+Reason -> Validate -> Authorise -> Execute -> Observe -> Evaluate
+```
+
+## Project vision and architecture
 
 - [Product vision](./docs/PRODUCT-VISION.md) describes the scorecard and the
-  proposed bounded AgentCore attack-simulation architecture.
+  broader bounded attack-simulation idea.
+- [Reference architecture](./docs/REFERENCE-ARCHITECTURE.md) defines the
+  architectural planes, trust boundaries, and the Attack Plan / Attack Pipeline
+  / Attack Deployment model.
+- [Roadmap](./docs/ROADMAP.md) describes the product/research milestones and a
+  separate track for implementation experiments such as AgentCore examples.
 - [SDLC approach](./docs/SDLC.md) describes how product intent, AI-assisted
   development, deterministic verification, delivery, observability, and
   feedback fit together.
@@ -20,19 +37,75 @@ happened and the evidence collected during each authorized scenario.
 - [`AttackYourself/AGENTS.md`](./AttackYourself/AGENTS.md) contains detailed
   AgentCore configuration and infrastructure guidance.
 
+## Reference architecture at a glance
+
+AttackYourself separates adversarial reasoning from authority and execution.
+
+- **Control Plane** — Attack Plans, scenario library, target definitions,
+  policies, guardrails, and deployment constraints.
+- **Agentic Reasoning Plane** — hypothesis generation, attack-path reasoning,
+  interpretation of observations, and bounded adaptation.
+- **Execution Plane** — Attack Pipelines, policy-gated tools, probes,
+  simulations, cleanup, and Attack Deployment lifecycle.
+- **Target & Observability Plane** — explicitly authorised AWS targets and the
+  telemetry or detection systems that observe them.
+- **Evaluation & Outcome Plane** — execution evidence, control effectiveness,
+  scorecards, findings, and recommendations.
+
+AgentCore is currently used as part of the reference implementation, but the
+architecture is intentionally expressed in AttackYourself concepts rather than
+in terms of any single agent platform.
+
+## Current proof
+
+The repository now contains a working deployed observation circuit:
+
+```text
+Operator
+   |
+   v
+AgentCore Runtime / AdversaryAgent
+   |
+   v
+Bedrock model
+   |
+   v
+MCP tool selection
+   |
+   v
+AttackGateway
+   |
+   v
+SimulationEnvironment Lambda
+   |
+   v
+Structured environment observation
+   |
+   v
+Agent response
+```
+
+The deployed agent can inspect the simulation environment through the
+explicitly exposed `describe_simulation_environment` capability and report what
+that capability returns.
+
+This proves the runtime -> reasoning -> gateway -> tool -> observation path.
+It does **not** mean the full reference architecture is implemented. Reusable
+Attack Plans, adaptive Attack Pipelines, Attack Deployment lifecycle, policy
+enforcement for active attack capabilities, telemetry correlation, and
+evidence-backed scorecards remain roadmap items.
+
 ## Current repository
 
-The AgentCore project is in [`AttackYourself/`](./AttackYourself/):
+The AgentCore reference implementation is in
+[`AttackYourself/`](./AttackYourself/):
 
 - `app/AdversaryAgent/` — TypeScript Strands agent runtime
-- `agentcore/agentcore.json` — AgentCore runtime and resource configuration
+- `agentcore/agentcore.json` — AgentCore runtime, gateway, and target
+  configuration
 - `agentcore/.llm-context/` — configuration types and validation constraints
 - `agentcore/cdk/` — AWS CDK infrastructure and tests
-
-The current repository is an early scaffold; the controlled attack-simulation
-tool, gateway policy enforcement, target environment, and evidence-backed
-scorecard described in the vision are not yet implemented. Treat the vision
-as the intended direction, not as a description of existing capabilities.
+- `tools/` — tool schemas exposed through the gateway
 
 There is no root `package.json`. Run package commands from the applicable
 application or infrastructure directory.
@@ -73,8 +146,8 @@ agentcore invoke --dev "What can you do?"
 ```
 
 The agent uses a Bedrock model configured in
-`app/AdversaryAgent/model/load.ts` and an Exa MCP endpoint configured in
-`app/AdversaryAgent/mcp_client/client.ts`.
+`app/AdversaryAgent/model/load.ts` and an MCP client configured in
+`app/AdversaryAgent/mcp_client/client.ts` to reach `AttackGateway`.
 
 ## Tests and infrastructure checks
 
