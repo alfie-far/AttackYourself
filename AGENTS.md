@@ -1,7 +1,11 @@
 # Repository guidance
 
-The product goal and longer-term architecture are in
-[`docs/PRODUCT-VISION.md`](./docs/PRODUCT-VISION.md). The development lifecycle
+The product thesis and architecture are in
+[`docs/PRODUCT-VISION.md`](./docs/PRODUCT-VISION.md) and
+[`docs/REFERENCE-ARCHITECTURE.md`](./docs/REFERENCE-ARCHITECTURE.md).
+Use [`docs/domain/GLOSSARY.md`](./docs/domain/GLOSSARY.md) for canonical terms;
+World, cognition and plan designs are in [`docs/architecture/`](./docs/architecture/).
+Do not mistake these proposals for implemented services. The development lifecycle
 principles are in [`docs/SDLC.md`](./docs/SDLC.md). Treat these as intent and
 direction; do not describe planned components as implemented. The repository
 status and useful commands are summarized in [`README.MD`](./README.MD).

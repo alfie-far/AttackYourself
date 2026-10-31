@@ -139,7 +139,8 @@ Responsibilities include:
 - operator / security engineer interaction
 - Attack Plans
 - scenario library
-- target definitions
+- target definitions and [World models](./architecture/WORLD-MODEL.md),
+  including observation contracts, capability boundaries and curricula
 - policies and guardrails
 - deployment constraints
 - approvals where required
@@ -162,6 +163,13 @@ Responsibilities include:
 - adaptation to previous results
 - reasoning over available capabilities and evidence
 
+Proposed responsibilities inside this existing plane include epistemic state,
+source-aware observations, distinguished inferences and hypotheses, an attack
+knowledge graph, memory read/write, uncertainty handling, bounded feedback,
+and purposeful stopping conditions. **This is not a sixth architectural plane**
+and these proposed mechanisms are not yet implemented. See
+[Agentic Cognition](./architecture/AGENTIC-COGNITION.md).
+
 The reasoning plane should not receive unrestricted cloud privileges. Its
 freedom is cognitive: it may reason broadly, but it may act only through
 capabilities made available by the execution plane.
@@ -172,8 +180,9 @@ The Execution Plane is where adversarial intent becomes controlled action.
 
 Responsibilities include:
 
+- compilation of reviewed plans into typed, bounded Attack Pipelines
 - Attack Pipeline orchestration
-- policy enforcement
+- identity, tool and policy enforcement
 - capability gateways
 - observation tools
 - attack probes
@@ -225,6 +234,42 @@ comparisons, and threat-framework mappings.
 
 AttackYourself therefore treats security validation as an evidence-backed
 feedback loop rather than a single opaque security score.
+
+## From World perception to evidence (proposed)
+
+The expanded cognitive loop preserves the existing five planes. It adds
+a first-class *planning-before-execution* path:
+
+~~~mermaid
+flowchart TB
+    W["World Model and Observations"] --> K["Knowledge and Hypothesis Graph"]
+    M["Memory and Prior Experience"] --> K
+    K --> C["Cognitive Feedback Loop"]
+    C --> R["Proposed Attack Plan"]
+    R --> V["Validation and Human Review"]
+    V --> P["Attack Pipeline"]
+    P --> D["Authorised Attack Deployment"]
+    D --> E["Execution Evidence"]
+    E --> K
+~~~
+
+This is a **conceptual information flow**, not an implemented LangGraph
+workflow. The agent may also perform another permitted read-only observation,
+or stop without a plan. The diagram does not grant a new action: every
+infrastructure-affecting call still traverses the independently governed
+Execution Plane.
+
+**Distinguish two policy domains.** AttackYourself's harness policy
+constrains what the adversarial agent may attempt; the target's IAM, WAF and
+other defences are what a harness-permitted test evaluates. A harness
+denial is *not* target-prevention evidence. Human approval binds a
+specific artefact, target, identity and constraints, rather than a model's
+ongoing reasoning or memory.
+
+The detailed designs are [World Model](./architecture/WORLD-MODEL.md),
+[Agentic Cognition](./architecture/AGENTIC-COGNITION.md),
+[Plan Compilation](./architecture/PLAN-COMPILATION.md) and
+[Domain Glossary](./domain/GLOSSARY.md).
 
 ## Reference architecture
 
@@ -373,6 +418,8 @@ It should **not** be read as evidence that the following are already complete:
 - telemetry correlation
 - evidence-backed scorecards
 - adaptive multi-step adversarial campaigns
+- a general World registry/curriculum and persistent epistemic graph or memory
+- a plan compiler, bound human approvals and temporal policy sessions
 
 ## Technology mapping
 
@@ -389,6 +436,9 @@ naturally to AgentCore:
 | Policy-gated capability access | AgentCore Policy Engine / Cedar |
 | Runtime observability | AgentCore logs/traces plus AWS telemetry |
 | Evaluation experiments | AgentCore evaluators where appropriate |
+| Durable review/checkpoints | Workflow engine/state store (not selected) |
+| Episodic/semantic memory | Memory service/store if justified (not selected) |
+| Temporal policy constraints | Candidate policy-session design (not implemented) |
 
 Other deployments may implement the same architectural responsibilities using
 different infrastructure. The AttackYourself domain model should not depend on

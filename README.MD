@@ -1,8 +1,10 @@
 # AttackYourself
 
-AttackYourself is an AWS security-control assessment project. Its goal is to
-run tightly scoped attack simulations and report, with execution evidence, how
-well an environment prevents, detects, contains, and recovers from them.
+AttackYourself is an AWS security-control assessment and agentic-systems
+research project: a laboratory for constructing, educating and governing
+adversarial intelligence. Agents explore controlled Worlds, form evidence-backed
+hypotheses and propose reviewable Attack Plans; authorised, policy-bounded
+execution then measures what target security controls actually do.
 
 The product should be treated as a continuous purple-team report, not as a
 single opaque security score. Findings need to be grounded in what actually
@@ -10,9 +12,9 @@ happened and the evidence collected during each authorized scenario.
 
 The architectural thesis is:
 
-> **AttackYourself turns reusable Attack Plans into policy-bounded Attack
-> Pipelines, executes them as authorised Attack Deployments, and evaluates the
-> resulting security evidence.**
+> **AttackYourself builds evidence-backed adversarial hypotheses in controlled
+> Worlds, transforms reviewed Attack Plans into policy-bounded Attack Pipelines,
+> executes authorised Attack Deployments, and evaluates the resulting evidence.**
 
 The core control loop is:
 
@@ -22,11 +24,20 @@ Reason -> Validate -> Authorise -> Execute -> Observe -> Evaluate
 
 ## Project vision and architecture
 
-- [Product vision](./docs/PRODUCT-VISION.md) describes the scorecard and the
-  broader bounded attack-simulation idea.
+- [Product vision](./docs/PRODUCT-VISION.md) explains the security-control
+  assurance mission and expanded adversarial-intelligence research thesis.
 - [Reference architecture](./docs/REFERENCE-ARCHITECTURE.md) defines the
   architectural planes, trust boundaries, and the Attack Plan / Attack Pipeline
   / Attack Deployment model.
+- [World Model](./docs/architecture/WORLD-MODEL.md) defines environments,
+  capability interfaces and progressive curricula.
+- [Agentic Cognition](./docs/architecture/AGENTIC-COGNITION.md) defines
+  evidence-sensitive hypotheses, graphs, memory and cognitive feedback.
+- [Plan Compilation](./docs/architecture/PLAN-COMPILATION.md) explains the
+  typed proposal, human-review and execution-authorisation boundary.
+- [Domain Glossary](./docs/domain/GLOSSARY.md) defines canonical terms.
+- [Determinism and Curriculum](./docs/research/DETERMINISM-AND-CURRICULUM.md)
+  records the research influence and testable hypotheses.
 - [Roadmap](./docs/ROADMAP.md) describes the product/research milestones and a
   separate track for implementation experiments such as AgentCore examples.
 - [SDLC approach](./docs/SDLC.md) describes how product intent, AI-assisted
@@ -43,8 +54,8 @@ AttackYourself separates adversarial reasoning from authority and execution.
 
 - **Control Plane** — Attack Plans, scenario library, target definitions,
   policies, guardrails, and deployment constraints.
-- **Agentic Reasoning Plane** — hypothesis generation, attack-path reasoning,
-  interpretation of observations, and bounded adaptation.
+- **Agentic Reasoning Plane** — source-aware knowledge and hypotheses, attack
+  graphs, memory, uncertainty and bounded cognitive feedback.
 - **Execution Plane** — Attack Pipelines, policy-gated tools, probes,
   simulations, cleanup, and Attack Deployment lifecycle.
 - **Target & Observability Plane** — explicitly authorised AWS targets and the
@@ -85,15 +96,17 @@ Structured environment observation
 Agent response
 ```
 
-The deployed agent can inspect the simulation environment through the
-explicitly exposed `describe_simulation_environment` capability and report what
+The deployed agent can inspect a **static simulation fixture**, not live AWS
+resource state, through the explicitly exposed `describe_simulation_environment` capability and report what
 that capability returns.
 
 This proves the runtime -> reasoning -> gateway -> tool -> observation path.
 It does **not** mean the full reference architecture is implemented. Reusable
 Attack Plans, adaptive Attack Pipelines, Attack Deployment lifecycle, policy
 enforcement for active attack capabilities, telemetry correlation, and
-evidence-backed scorecards remain roadmap items.
+evidence-backed scorecards remain roadmap items. A persistent World model,
+knowledge graph, curriculum engine, plan compiler and human approval workflow
+are also **design proposals**, not implemented capabilities.
 
 ## Current repository
 
