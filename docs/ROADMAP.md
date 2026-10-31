@@ -38,17 +38,17 @@ ADAPT
 CAMPAIGNS
 ```
 
-| Milestone | AttackYourself capability | Proof |
+| Milestone | AttackYourself capability | Added research objective |
 | --- | --- | --- |
-| **0 — Foundation** | Agent -> constrained tool -> target information | End-to-end circuit works |
-| **1 — Observe** | Real, read-only environment inspection | Agent reasons over actual bounded AWS state |
-| **2 — Plan** | Reusable Attack Plan model | Security scenarios exist independently of implementation |
-| **3 — Pipeline** | Executable attack workflows | Plans become policy-bounded execution graphs |
-| **4 — Deploy** | Attack Deployment lifecycle | A pipeline safely targets a concrete authorised environment |
-| **5 — Correlate** | Security telemetry and execution evidence | Actions correlate with CloudTrail, GuardDuty, or other signals |
-| **6 — Evaluate** | Evidence-backed scorecards | Prevention, detection, containment, evidence, and recovery are measured |
-| **7 — Adapt** | Evidence-driven adversarial reasoning | The agent chooses permitted alternate paths based on observations |
-| **8 — Campaigns** | Multiple pipelines coordinated toward an objective | Bounded purple-team exercises emerge from reusable plans |
+| **0 — Foundation** | Agent → bounded tool → structured fixture | Demonstrate a working circuit, not live AWS verification |
+| **1 — Observe** | Real, read-only scoped AWS observation | **Construct a World model from tool observations** |
+| **2 — Plan** | Reusable Attack Plan model | **Generate hypotheses with provenance and explicit uncertainty** |
+| **3 — Pipeline** | Typed, executable bounded workflow | **Compile candidate plans into validated execution graphs** |
+| **4 — Deploy** | Authorised Attack Deployment | **Bind human approval, identity, scope and temporal policy** |
+| **5 — Correlate** | Execution plus defensive telemetry | **Convert World interactions into preserved evidence** |
+| **6 — Evaluate** | Evidence-backed security assessment | **Measure both agent reasoning quality and target security-control effectiveness** |
+| **7 — Adapt** | Evidence-driven adversarial reasoning | **Demonstrate useful feedback, learning and correction** |
+| **8 — Campaigns** | Coordinated reusable pipelines | **Apply experience across increasingly complex Worlds** |
 
 ### Milestone 0 — Foundation
 
@@ -73,7 +73,10 @@ Potential capabilities:
 - identify enabled security controls
 - return structured observations to the agent
 
-The observation identity should remain least-privilege and read-only.
+The observation identity should remain least-privilege and read-only. Every
+result should identify its World, source and limitations. Static simulation
+fixtures must not be mistaken for actual AWS findings. See
+[World Model](./architecture/WORLD-MODEL.md).
 
 ### Milestone 2 — Plan
 
@@ -84,7 +87,8 @@ candidate techniques, expected controls, evidence requirements, stop
 conditions, cleanup requirements, and optional ATT&CK mappings.
 
 A plan should be versioned and reusable independently of any one AWS account or
-concrete deployment.
+concrete deployment. Record observed premises, unverified hypotheses, explicit
+uncertainty and traceable candidate artefacts. A candidate is not executable.
 
 ### Milestone 3 — Pipeline
 
@@ -95,7 +99,9 @@ agent-selected branches within allowed bounds, typed capability contracts,
 evidence collection points, stop semantics, and cleanup.
 
 The pipeline defines the permitted execution graph while allowing the agent to
-adapt within that graph based on observations.
+adapt within that graph based on observations. Add deterministic schema,
+semantic/scope validation and explicit human approval before active execution.
+See [Plan Compilation](./architecture/PLAN-COMPILATION.md).
 
 ### Milestone 4 — Deploy
 
@@ -105,7 +111,8 @@ A deployment binds a pipeline to an authorised account, region, target scope,
 policy set, identities, budgets, limits, run identifier, and cleanup state.
 
 The same reusable pipeline should be safely instantiable against different
-explicitly authorised targets.
+explicitly authorised targets. Approval must bind target, identity, capabilities,
+policy and limits, with session-specific prerequisites where appropriate.
 
 ### Milestone 5 — Correlate
 
@@ -125,6 +132,8 @@ Evaluation dimensions may include attack execution, prevention, detection,
 alerting, containment, evidence preservation, recovery, and cleanup.
 
 The control-level evidence is more important than a single aggregate score.
+Keep agent/harness evaluation separate from target control effectiveness:
+a harness-policy denial is not a target IAM prevention result.
 
 ### Milestone 7 — Adapt
 
@@ -132,7 +141,8 @@ The control-level evidence is more important than a single aggregate score.
 
 The system may generate alternative hypotheses and choose another permitted
 branch, but it must not expand its authority beyond the predefined execution
-envelope.
+envelope. Measure correction from contradictory observations, memory value,
+calibration and information efficiency on unfamiliar Worlds.
 
 ### Milestone 8 — Campaigns
 
@@ -142,6 +152,30 @@ security objective.
 Potential capabilities include multi-stage campaigns, cross-scenario evidence,
 attack-path graph construction, campaign-level stop conditions, and
 longitudinal resilience trends.
+
+## Cross-cutting research programme
+
+The milestones above incorporate these research objectives **without
+implying that the associated services already exist**:
+
+- Define a minimal World/observation model with provenance, limits, and
+  hidden ground truth for synthetic tests.
+- Experiment with distinct observations, inferences, hypotheses, graphs,
+  long-term memory and a candidate-only cognitive feedback loop.
+- Design a curriculum for observing, reasoning, planning, discipline and
+  adaptation. Evaluate on held-out Worlds rather than rehearsed scenarios.
+- Compare structured state, episodic memory and feedback against a baseline
+  using plan validity, calibration, unsupported claims, information gain and
+  correct safe-stopping metrics.
+- Design and validate typed plan compilation, human authorisation, narrowed
+  identity, runtime and temporal policy before active probes.
+- Keep workflow checkpoints, long-term agent memory, and policy-session
+  history separate. One cannot silently substitute for another.
+
+See [World Model](./architecture/WORLD-MODEL.md),
+[Agentic Cognition](./architecture/AGENTIC-COGNITION.md),
+[Plan Compilation](./architecture/PLAN-COMPILATION.md) and
+[Determinism and Curriculum](./research/DETERMINISM-AND-CURRICULUM.md).
 
 ## Near-term focus
 
