@@ -7,7 +7,10 @@
   "scripts": {
     "build": "tsc",
     "start": "node dist/main.js",
-    "dev": "tsx watch main.ts"
+    "dev": "tsx watch main.ts",
+    "test:world": "npm run build && node --test dist/semantic-world/tests/*.test.js",
+    "demo:world": "npm run build && node dist/semantic-world/demo.js",
+    "demo:lambda-world": "npm run build && node dist/semantic-world/demo-lambda.js"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.25.2",
