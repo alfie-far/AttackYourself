@@ -10,6 +10,16 @@ Its original purpose is equally important: to assess how real cloud-security con
 
 These two goals reinforce one another. AttackYourself is both an experimental setting for reasoning and a mechanism for producing evidence-backed, continuously repeatable purple-team assessments.
 
+## The operating model: informed continuously, investigating episodically
+
+The platform should maintain **cheap, configurable, World-aware perception** rather than run an expensive reasoning agent for every event. Versioned labelling rules classify and correlate incoming observations; activation policy decides whether accumulated evidence or a periodic review justifies an **Investigation Episode**. Each episode is bounded by a mandate, World snapshot, independently enforced capabilities, budgets and explicit stopping criteria.
+
+**Always-on perception. Conditional activation. Finite investigation. Persistent, evidence-qualified outcomes.**
+
+This sharpens the project's research identity: investigate the *quality of inquiry* and production of falsifiable hypotheses, not the volume of alerts or scan findings. An episode may conclude inconclusively or without an Attack Plan. Investigation and test execution are separate authorities. A user-installed Investigation Unit may operate against authorised Worlds and connectors independently of the existing AdversaryAgent; neither service must know the other's implementation.
+
+The World, epistemic, authority and cognitive **topologies** describe what exists, what is believed, what actions are permitted and how understanding changes. They are logical responsibilities, not new architectural planes. See [Investigation Episodes](./architecture/INVESTIGATION-EPISODES.md).
+
 ## From world experience to a governed exercise
 
 ~~~text
@@ -98,9 +108,11 @@ This is **inspiration, not a scientific claim that LLMs learn like humans or tha
 
 **Demonstrated:** a TypeScript Strands adversary on Bedrock AgentCore Runtime invokes a narrow MCP Gateway/Lambda capability and interprets a structured **static simulation-environment fixture**. That verifies an end-to-end agent → gateway → tool → response circuit. It is *not* live scoped AWS discovery or evidence that CloudTrail, GuardDuty or IAM protections worked.
 
-**Not yet implemented:** general World design and curricula, real scoped AWS observation, persistent hypothesis/knowledge graphs, long-term memory, durable cognitive loops, typed plan compilation, human approval lifecycle, active policy-bounded deployments, correlated target evidence and scorecards.
+**Implemented offline experiment:** the standalone semantic World prototype constructs source-anchored assertions and revisioned interpretations from synthetic descriptions; it does not operate as a deployed investigation service.
 
-**Next proof:** replace the fixture with least-privilege, read-only observation of explicitly authorised AWS resources, preserve provenance, and produce a validated candidate Attack Plan **without executing it**. See [Roadmap](./ROADMAP.md).
+**Not yet implemented:** a deployable Investigation Unit, continuous labelling, episode activation/persistence, general World registry and curricula, real scoped AWS observation, persistent hypothesis/knowledge graphs, long-term memory, durable cognitive loops, typed plan compilation, human approval lifecycle, active policy-bounded deployments, correlated target evidence and scorecards.
+
+**Next proof:** first establish a reproducible, synthetic **label → trigger → finite episode → evidence-qualified outcome** slice independent of the AdversaryAgent. Then connect least-privilege, read-only observation of explicitly authorised AWS resources. Neither step executes attacks. See [Roadmap](./ROADMAP.md).
 
 **Non-goals:** unrestricted autonomous exploitation, testing without owner authorisation, automatic authority gained from model output, replacing evidence with memory or confidence, or marketing-driven aggregate scores.
 
@@ -108,6 +120,7 @@ This is **inspiration, not a scientific claim that LLMs learn like humans or tha
 
 [Reference Architecture](./REFERENCE-ARCHITECTURE.md) ·
 [World Model](./architecture/WORLD-MODEL.md) ·
+[Investigation Episodes](./architecture/INVESTIGATION-EPISODES.md) ·
 [Agentic Cognition](./architecture/AGENTIC-COGNITION.md) ·
 [Plan Compilation](./architecture/PLAN-COMPILATION.md) ·
 [Domain Glossary](./domain/GLOSSARY.md) ·
