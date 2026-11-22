@@ -83,6 +83,14 @@ This is a **conceptual information-flow loop**, not a deployed graph. Inside the
 
 A healthy loop updates its understanding in response to the actual world, not merely in response to its own successive explanations.
 
+## Episode boundaries and standing questions
+
+**The investigator does not need to reason continuously.** Prewritten, versioned labelling rules and a separate activation controller may process stream information cheaply between runs. A scheduled check, contradictory observation, accumulated significance or authorised operator request can activate a finite **Investigation Episode**. The controller decides *whether* to investigate; the episode's cognitive strategy decides *what to learn next*.
+
+An episode binds a World snapshot/as-of boundary, mandate, trigger and evidence references, independently enforced capabilities, policy, time/cost/tool budget and termination criteria. Its internal organisation—single agent, multiple specialists, deterministic graph reasoning or some combination—is an experimental design choice. Standing unanswered questions and prior episode records can inform future episodes but are not live facts or permissions.
+
+An episode should always terminate with a reportable reason, including *inconclusive*, *deferred*, *denied*, *cancelled* and *budget exhausted*. Its outcome may include sourced hypotheses or a candidate scenario; it does not gain permission to run a test. Compare strategies on the same frozen World/evidence and budgets to evaluate quality of inquiry, rather than counts of tool calls or findings. See [Investigation Episodes](./INVESTIGATION-EPISODES.md).
+
 ## 7. Exploration and Information Gain
 
 Rank potential inquiries by **expected information value**, relevance to the objective, ability to distinguish hypotheses, quality of available evidence, execution risk, scope and remaining time/tool budget.
@@ -131,4 +139,4 @@ Measure **agent/harness correctness separately from target defensive effectivene
 - Which cognitive transitions should be model-based, and which should be deterministic?
 - How can feedback revise future plans without implicitly extending execution authority?
 
-Related: [World Model](./WORLD-MODEL.md), [Plan Compilation](./PLAN-COMPILATION.md), [Determinism and Curriculum](../research/DETERMINISM-AND-CURRICULUM.md), [Glossary](../domain/GLOSSARY.md).
+Related: [World Model](./WORLD-MODEL.md), [Investigation Episodes](./INVESTIGATION-EPISODES.md), [Plan Compilation](./PLAN-COMPILATION.md), [Determinism and Curriculum](../research/DETERMINISM-AND-CURRICULUM.md), [Glossary](../domain/GLOSSARY.md).

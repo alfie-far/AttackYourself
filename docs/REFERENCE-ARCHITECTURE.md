@@ -235,6 +235,27 @@ comparisons, and threat-framework mappings.
 AttackYourself therefore treats security validation as an evidence-backed
 feedback loop rather than a single opaque security score.
 
+## Continuous perception and finite investigation (proposed)
+
+**A World is not an agent session.** Observations may arrive continuously from documents, resource descriptors or streams, even while no investigator is running. A cheap, versioned labelling layer classifies incoming data without promoting labels to facts or security findings. An activation controller uses periodic schedules, questions, contradictions and configurable thresholds to start **bounded Investigation Episodes**. Each episode receives a World snapshot, evidence, a mandate, permitted read-only capabilities by default, budgets and termination rules; it can end without producing a candidate plan.
+
+~~~mermaid
+flowchart TD
+    IN["World sources and streams"] --> LB["Normalise, label, preserve provenance"]
+    LB --> WORLD["World-aware observation state"]
+    WORLD --> ACT["Activation controller"]
+    ACT -->|Mandate and limits| EP["Investigation Episode"]
+    WORLD -->|Versioned context| EP
+    EP --> OUT["Episode record and candidate hypotheses/scenarios"]
+    OUT -. "Validated update proposal" .-> WORLD
+    OUT --> REVIEW["Independent plan review"]
+    REVIEW -->|Approved execution only| RUN["Attack Pipeline and Deployment"]
+~~~
+
+This operating model **fits within the existing five architectural planes** rather than adding a sixth. World ownership and source ingestion span the Control and Target & Observability concerns; activation, investigation and epistemic state sit within the Agentic Reasoning Plane; authority enforcement and any active tests remain under independent Control/Execution gates. The Evaluation & Outcome Plane assesses evidence after authorised deployment.
+
+A locally deployable Investigation Unit and the current AdversaryAgent are distinct roles. Sharing an AWS account or Bedrock backend never implies mutual awareness, credential sharing or delegated authority. The portable World contracts should not depend on AgentCore. See [Investigation Episodes](./architecture/INVESTIGATION-EPISODES.md).
+
 ## From World perception to evidence (proposed)
 
 The expanded cognitive loop preserves the existing five planes. It adds
@@ -267,6 +288,7 @@ specific artefact, target, identity and constraints, rather than a model's
 ongoing reasoning or memory.
 
 The detailed designs are [World Model](./architecture/WORLD-MODEL.md),
+[Investigation Episodes](./architecture/INVESTIGATION-EPISODES.md),
 [Agentic Cognition](./architecture/AGENTIC-COGNITION.md),
 [Plan Compilation](./architecture/PLAN-COMPILATION.md) and
 [Domain Glossary](./domain/GLOSSARY.md).
@@ -420,6 +442,7 @@ It should **not** be read as evidence that the following are already complete:
 - adaptive multi-step adversarial campaigns
 - a general World registry/curriculum and persistent epistemic graph or memory
 - a plan compiler, bound human approvals and temporal policy sessions
+- stream-aware labelling, episode activation/controller, Investigation Unit and durable episode records
 
 ## Technology mapping
 

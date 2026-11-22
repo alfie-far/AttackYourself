@@ -6,6 +6,14 @@
 | --- | --- |
 | **World** | Versioned environment with state, rules, dynamics, observability, boundaries and a learning or assessment objective. Not synonymous with MCP. |
 | **World definition** | Declared metadata about an environment; not a live observation or grant of authority. |
+| **World Pack** | Proposed portable, versioned bundle of World definitions, synthetic sources and evaluation fixtures; no implicit code execution, credentials or permissions. |
+| **Investigation Unit** | Proposed independently deployable capability that connects authorised Worlds and adapters to bounded investigations; separate from the AdversaryAgent and any active tester. |
+| **Observation label** | Versioned classification of a sourced observation; neither a finding nor proof of the implied World state. |
+| **Labelling ruleset** | Configurable, reproducible and versioned classification rules for low-cost continuous perception. |
+| **Activation controller** | Bounded, usually deterministic policy selecting when to start or suppress an Investigation Episode; triggering is not permission to test. |
+| **Investigation Episode** | Finite investigation with mandate, World reference, evidence, allowed capabilities, budget, stopping criteria and durable outcome. |
+| **Investigation mandate** | Explicit, bounded question/objective, scope and constraints for an episode; does not override independent policy. |
+| **Attack scenario** | Evidence-qualified, falsifiable candidate security hypothesis or possible path; not an authorised Attack Plan or Deployment. |
 | **Capability** | Narrow, typed, versioned observation or action exposed through tools, MCP or a gateway. |
 | **Observation** | What a scoped tool reported, with timestamp, provenance, limitations and context. |
 | **Inference** | Derived claim with explicit source premises and uncertainty. |
@@ -35,5 +43,8 @@
 6. **Static declared World != verified live AWS state.** A simulated fixture is not proof of real resource configurations.
 7. **Probabilistic reasoning != probabilistic authority.** Execution constraints are enforced deterministically.
 8. **Research aspiration != delivered behaviour.** Label designs, experiments, implemented functionality and proven results separately.
+9. **Label != fact != finding.** A classifier may reliably recognise a type of observation without establishing the security implications.
+10. **Episode != authority.** Triggering, observing, reasoning and proposing never approve active execution.
+11. **Persistent World != perpetual agent.** Stream processing can continue cheaply while investigations are finite and independently governed.
 
-Related: [Product Vision](../PRODUCT-VISION.md), [Reference Architecture](../REFERENCE-ARCHITECTURE.md), [World Model](../architecture/WORLD-MODEL.md), [Agentic Cognition](../architecture/AGENTIC-COGNITION.md), [Plan Compilation](../architecture/PLAN-COMPILATION.md).
+Related: [Product Vision](../PRODUCT-VISION.md), [Investigation Episodes](../architecture/INVESTIGATION-EPISODES.md), [Reference Architecture](../REFERENCE-ARCHITECTURE.md), [World Model](../architecture/WORLD-MODEL.md), [Agentic Cognition](../architecture/AGENTIC-COGNITION.md), [Plan Compilation](../architecture/PLAN-COMPILATION.md).

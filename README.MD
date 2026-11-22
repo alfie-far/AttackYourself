@@ -16,6 +16,8 @@ The architectural thesis is:
 > Worlds, transforms reviewed Attack Plans into policy-bounded Attack Pipelines,
 > executes authorised Attack Deployments, and evaluates the resulting evidence.**
 
+The proposed investigation operating model is **always-on low-cost perception, conditional activation, finite episodes and durable outcomes**. An independently installed Investigation Unit can eventually consume portable World descriptions and authorised connectors without being coupled to the existing AdversaryAgent. These capabilities are **not yet implemented**; see [Investigation Episodes](./docs/architecture/INVESTIGATION-EPISODES.md).
+
 The core control loop is:
 
 ```text
@@ -31,6 +33,9 @@ Reason -> Validate -> Authorise -> Execute -> Observe -> Evaluate
   / Attack Deployment model.
 - [World Model](./docs/architecture/WORLD-MODEL.md) defines environments,
   capability interfaces and progressive curricula.
+- [Investigation Episodes](./docs/architecture/INVESTIGATION-EPISODES.md) proposes
+  deterministic observation labels, stream handling, activation policies, finite
+  investigative episodes and durable epistemic outcomes.
 - [Agentic Cognition](./docs/architecture/AGENTIC-COGNITION.md) defines
   evidence-sensitive hypotheses, graphs, memory and cognitive feedback.
 - [Plan Compilation](./docs/architecture/PLAN-COMPILATION.md) explains the
@@ -104,9 +109,12 @@ This proves the runtime -> reasoning -> gateway -> tool -> observation path.
 It does **not** mean the full reference architecture is implemented. Reusable
 Attack Plans, adaptive Attack Pipelines, Attack Deployment lifecycle, policy
 enforcement for active attack capabilities, telemetry correlation, and
-evidence-backed scorecards remain roadmap items. A persistent World model,
-knowledge graph, curriculum engine, plan compiler and human approval workflow
-are also **design proposals**, not implemented capabilities.
+evidence-backed scorecards remain roadmap items. A persistent World registry, streaming labelling/activation service, Investigation
+Unit, episode lifecycle, curriculum engine, plan compiler and human approval
+workflow are also **design proposals**, not implemented capabilities. A small
+offline semantic World experiment **is implemented** under
+`app/AdversaryAgent/semantic-world/`, but is not integrated into the deployed
+runtime.
 
 ## Current repository
 
@@ -130,8 +138,11 @@ application or infrastructure directory.
 - AWS credentials with the required Bedrock AgentCore access for local AWS
   model use or deployment
 
-Deployment also requires a configured AWS target. The checked-in
-`AttackYourself/agentcore/aws-targets.json` is currently empty.
+Deployment requires an explicitly authorised AWS target. The checked-in
+`AttackYourself/agentcore/aws-targets.json` contains a project-specific
+development-account target; contributors must inspect and deliberately configure
+their own account/region and any hard-coded Gateway Lambda ARN before deploying.
+Never deploy using someone else's checked-in target by default.
 
 ## Local development
 
@@ -164,8 +175,18 @@ The agent uses a Bedrock model configured in
 
 ## Tests and infrastructure checks
 
-The agent package currently provides a TypeScript build check but no test
-script. Run the CDK tests and build with:
+The agent package contains an **offline** semantic World test suite and demos
+that do not exercise deployed AgentCore resources:
+
+```bash
+cd AttackYourself/app/AdversaryAgent
+npm ci
+npm run test:world
+npm run demo:world
+npm run demo:lambda-world
+```
+
+Run the CDK tests and build with:
 
 ```bash
 cd AttackYourself/agentcore/cdk

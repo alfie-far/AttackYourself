@@ -46,6 +46,16 @@ execution:
 
 World metadata is not a validated schema, proof that live AWS resources match, or execution permission.
 
+## Static Worlds, evolving knowledge and streams
+
+A World may be an authored narrative, a synthetic technical descriptor, an isolated AWS lab or an authorised live environment. Describing a World is separate from claiming that a real environment matches it. A **portable World Pack** is a proposed shareable bundle of World definitions, synthetic sources, evaluation cases and declared adapter requirements; it carries no credentials or automatic execution authority. Its packaging specification is not yet implemented.
+
+A stream event is an **observation about a World**, not automatically a World-state transition or a security finding. Keep reported event/effective time, capture time and ingestion time distinct. Preserve duplicates/late arrivals for audit while deduplicating their effects on materialised state; retain source and classifier versions so interpretations can be replayed.
+
+The proposed cheap labelling layer attaches reproducible classifications (for example `identity.policy_changed`) using versioned rules. Labels support correlation and trigger evaluation but do not prove effective IAM permissions or other underlying security properties. The [Investigation Episode operating model](./INVESTIGATION-EPISODES.md) specifies how labelled evidence can periodically or conditionally start bounded inquiry.
+
+World Engineering owns the reusable description and source/evidence contracts. A separately deployable Investigation Unit, a Bedrock adapter or an AdversaryAgent may be consumers, but they must not be built into World identity.
+
 ## Observation and action contracts
 
 Observations should carry a World and target revision, capability/schema version, invocation/correlation ID, source, time, data completeness, errors and scope. Keep **declared**, **observed** and **inferred** information separate. The current static Lambda fixture reports simulated data, not verified AWS configuration.
@@ -88,4 +98,4 @@ World fidelity, agent-quality outcomes and target-control effectiveness remain d
 
 What is the smallest useful World schema? How is hidden state represented? How should World revisions invalidate old observations or approvals? What can synthetic results predict about an AWS lab? Which reset/cleanup guarantees can be independently demonstrated?
 
-See [Agentic Cognition](./AGENTIC-COGNITION.md), [Plan Compilation](./PLAN-COMPILATION.md), [Reference Architecture](../REFERENCE-ARCHITECTURE.md) and [Glossary](../domain/GLOSSARY.md).
+See [Investigation Episodes](./INVESTIGATION-EPISODES.md), [Agentic Cognition](./AGENTIC-COGNITION.md), [Plan Compilation](./PLAN-COMPILATION.md), [Reference Architecture](../REFERENCE-ARCHITECTURE.md) and [Glossary](../domain/GLOSSARY.md).

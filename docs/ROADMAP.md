@@ -8,6 +8,12 @@ reusable, policy-bounded adversarial validation backed by execution evidence.
 Agent platform features can be explored separately as reference deployments or
 examples when they do not naturally belong in the product story.
 
+## Operating-model research before more cloud machinery
+
+The next small proof should test a new principle: **always-on low-cost perception, occasional bounded cognition, persistent evidence**. Before extending live discovery or execution, implement one synthetic Lambda/IAM World with a versioned deterministic labelling ruleset, a trigger, one finite Investigation Episode and a durable, reviewable result. A later contradictory observation must challenge the initial hypothesis, not silently overwrite it. No deployed AgentCore component or active attack is required to demonstrate the contract.
+
+A user-owned AWS Investigation Unit, read-only adapters, streams and optional Bedrock reasoning can follow as **implementations of the same portable operating model**. Keep investigation authority distinct from any future testing agent. See [Investigation Episodes](./architecture/INVESTIGATION-EPISODES.md).
+
 ## Product and research track
 
 ```text
@@ -173,6 +179,7 @@ implying that the associated services already exist**:
   history separate. One cannot silently substitute for another.
 
 See [World Model](./architecture/WORLD-MODEL.md),
+[Investigation Episodes](./architecture/INVESTIGATION-EPISODES.md),
 [Agentic Cognition](./architecture/AGENTIC-COGNITION.md),
 [Plan Compilation](./architecture/PLAN-COMPILATION.md) and
 [Determinism and Curriculum](./research/DETERMINISM-AND-CURRICULUM.md).
@@ -180,20 +187,25 @@ See [World Model](./architecture/WORLD-MODEL.md),
 ## Near-term focus
 
 ```text
-Static observation
+Synthetic World + deterministic observation labelling
        |
        v
-Real read-only observation
+Versioned trigger -> bounded Investigation Episode
        |
        v
-Reusable Attack Plan schema
+Hypothesis revision + durable episode record
        |
        v
-First policy-bounded Attack Pipeline
+Read-only, authorised AWS observation adapter
+       |
+       v
+Reviewed candidate Attack Plan
+       |
+       v
+Future policy-bounded Attack Pipeline
 ```
 
-That sequence preserves the core safety boundary while turning the current
-working circuit into a reusable security-validation system.
+The first three steps test epistemic discipline and episode orchestration without live infrastructure changes. Later steps preserve the independent authorisation boundary and existing **Attack Plan -> Attack Pipeline -> Attack Deployment** relationship.
 
 ## Reference implementation and platform exploration track
 
