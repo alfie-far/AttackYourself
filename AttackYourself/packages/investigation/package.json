@@ -1,0 +1,13 @@
+{
+  "name": "@attackyourself/investigation-experiment",
+  "version": "0.1.0",
+  "description": "Dependency-free, offline, replayable bounded investigation episodes",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=22" },
+  "scripts": {
+    "demo": "node demo.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "replay": "node replay.mjs"
+  }
+}

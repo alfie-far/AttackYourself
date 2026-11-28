@@ -1,0 +1,19 @@
+{
+  "id": "obs-scp-deny-002",
+  "worldRef": "lambda-descriptor-lab@1",
+  "kind": "aws.organizations.scp_statement",
+  "subject": "arn:aws:iam::111122223333:role/example-order-worker-role",
+  "occurredAt": "2026-11-22T00:00:00.000Z",
+  "ingestedAt": "2026-11-22T00:03:00.000Z",
+  "source": {
+    "kind": "synthetic-tool-result",
+    "reference": "fixture-tool/inspect_synthetic_scp"
+  },
+  "facts": {
+    "effect": "Deny",
+    "action": "s3:GetObject",
+    "resource": "arn:aws:s3:::lab-orders-example/*",
+    "policyType": "scp",
+    "applicability": "assumed-applicable-in-fixture"
+  }
+}
