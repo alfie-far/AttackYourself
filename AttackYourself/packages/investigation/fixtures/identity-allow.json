@@ -1,0 +1,18 @@
+{
+  "id": "obs-identity-allow-001",
+  "worldRef": "lambda-descriptor-lab@1",
+  "kind": "aws.iam.identity_statement",
+  "subject": "arn:aws:iam::111122223333:role/example-order-worker-role",
+  "occurredAt": "2026-11-22T00:01:00.000Z",
+  "ingestedAt": "2026-11-22T00:02:00.000Z",
+  "source": {
+    "kind": "synthetic-fixture",
+    "reference": "fixtures/identity-allow.json"
+  },
+  "facts": {
+    "effect": "Allow",
+    "action": "s3:GetObject",
+    "resource": "arn:aws:s3:::lab-orders-example/*",
+    "policyType": "identity"
+  }
+}

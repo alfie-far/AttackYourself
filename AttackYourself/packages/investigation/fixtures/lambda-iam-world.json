@@ -1,0 +1,26 @@
+{
+  "world": {
+    "id": "lambda-descriptor-lab",
+    "revision": 1,
+    "title": "Synthetic Lambda and IAM access World",
+    "description": "Research whether a declared identity Allow implies effective access when an SCP denial is present",
+    "kind": "synthetic"
+  },
+  "entities": [
+    {
+      "id": "lambda-example-order-worker",
+      "type": "AWS::Lambda::Function",
+      "runtime": "nodejs22.x",
+      "executionRole": "arn:aws:iam::111122223333:role/example-order-worker-role"
+    },
+    {
+      "id": "lab-orders-bucket",
+      "type": "AWS::S3::Bucket",
+      "arn": "arn:aws:s3:::lab-orders-example"
+    }
+  ],
+  "scope": {
+    "mode": "simulation-only",
+    "allowedCapabilities": ["inspect_synthetic_scp"]
+  }
+}
